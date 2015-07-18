@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>click demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+<form id="target" action="destination.html">
+  <textarea type="text" value="Hello there" id="text"></textarea>
+  <input type="submit" value="Go">
+</form>
+ 
+<script>
+$("#target").submit(function(e) {
+  e.preventDefault();
+  var data = $('#text').val();
+  sendtext(data);
+  console.log(data);
+
+});
+	function sendtext(data){
+			console.log("hello");
+			$.ajax({
+				type : "POST",
+				url: "http://localhost:5000/convert",
+				data: "data="+data,
+				success: function(data){
+					console.log(data);
+				},
+				error: function(err){
+					console.log(err);
+				}
+			})
+		}
+</script>
+ 
+</body>
+</html>
