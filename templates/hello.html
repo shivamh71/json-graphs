@@ -7,10 +7,13 @@
 </head>
 <body>
 
-<form id="target" action="destination.html">
+<form id="target">
   <textarea type="text" value="Hello there" id="text"></textarea>
   <input type="submit" value="Go">
 </form>
+<div id="outputJson">
+
+</div>
  
 <script>
 $("#target").submit(function(e) {
@@ -21,16 +24,16 @@ $("#target").submit(function(e) {
 
 });
 	function sendtext(data){
-			console.log("hello");
 			$.ajax({
 				type : "POST",
 				url: "http://localhost:5000/convert",
 				data: "data="+data,
 				success: function(data){
 					console.log(data);
+					$('#outputJson').html('<pre>'+data+'</pre>');
 				},
 				error: function(err){
-					console.log(err);
+			//		console.log(err);
 				}
 			})
 		}

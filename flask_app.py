@@ -20,7 +20,7 @@ class Node:
 # GLobal variables and Imports
 stack = []
 curIndex = 0
-spaceCount = 4
+spaceCount = 2
 import json
 
 def countTabs(line):
@@ -50,9 +50,13 @@ def popFromStack():
 def makeTree(fileName):
     global stack
     global curIndex
+    stack = []
+    curIndex = 0
     pushInStack(Node("pseudoRootNode",[],None))
     fin = open(fileName,"r")
+    fin.seek(0)
     lines = fin.readlines()
+    fin.close();
     for line in lines:
         tabCount = countTabs(line)
         if(tabCount == curIndex):
@@ -76,7 +80,9 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     return render_template("hello.html")
-
+@app.route("/d3")
+def d3():
+    return render_template("graph.html")
 @app.route("/convert", methods=["POST"])
 def convert():
     data = request.form['data']

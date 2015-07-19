@@ -1,0 +1,56 @@
+[
+  {
+    "name": "a",
+    "parent": "null",
+    "children":[
+      {
+        "name": "b",
+        "parent": "a"
+      },
+      {
+        "name": "c",
+        "parent":"a",
+        "children":[{
+            "name":"d",
+            "parent":"c"
+          },
+          {
+            "name":"e",
+            "parent":"c"
+          }
+        ]
+      }
+    ]
+  }
+]
+
+{
+   "pseudoRootNode":[
+      "a",
+      "b",
+      {
+         "c":[
+            "d",
+            "e"
+         ]
+      }
+   ]
+}
+
+a
+  b
+  c
+    d
+    e
+
+[{
+  "psuedoRootNode":[
+    {"a":[
+      {"b":[]},
+      {"c":[
+        {"d":[]},
+        {"e":[]}
+      ]}
+    ]}
+  ]
+}]
