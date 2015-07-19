@@ -8,13 +8,21 @@ class Node:
         self.parent = parent
 
     def toJSON(self):
+        result = {
+            "name" : self.label,
+            "parent" : self.parent
+        }
         if(len(self.childArray)==0):
-            return self.label
+            # return self.label
+            return result
         else:
-            result = {}
-            result[self.label] = []
+            result["children"] = []
+            # result[self.label] = []
             for child in self.childArray:
-                result[self.label] += [child.toJSON()]
+                # result[self.label] += [child.toJSON()]
+                childJson = child.toJSON()
+                childJson["parent"] = self.label
+                result["children"] += [childJson]
             return result
 
 # GLobal variables and Imports
@@ -70,6 +78,7 @@ def makeTree(fileName):
                 popFromStack()
             pushInStack(Node(line.strip(),[],stack[-1]))
             curIndex = tabCount
+    print stack[0].toJSON()
     return json.dumps(stack[0].toJSON())
 
 ## Flask code
@@ -80,9 +89,11 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     return render_template("hello.html")
+
 @app.route("/d3")
 def d3():
     return render_template("graph.html")
+
 @app.route("/convert", methods=["POST"])
 def convert():
     data = request.form['data']
